@@ -1,5 +1,5 @@
 /* jshint esversion: 6 */
-
+/* JS效果：图片左右按钮切换、自动轮播、小点点随图片显示*/
 class Slider {
   constructor(id) {
     this.box = document.querySelector(id); //整个轮播图
@@ -45,27 +45,26 @@ class Slider {
       if (pointIndex == this.index || this.animated) {
         return;
       }
-
       let offset = (pointIndex - this.index) * this.sliderWidth;
       //用户隔好几个小点点击，当前索引值-之前的值*一张图片的宽度
-
       this.index = pointIndex;
       this.move(offset);
     });
   }
 
   copyPic() {
-    //扩展ul图片
+    //扩展ul图片，图片队伍顺序变成 5,1,2,3,4,5,1
     const first = this.picBox.firstElementChild.cloneNode(true);
     const last = this.picBox.lastElementChild.cloneNode(true);
 
     this.picBox.appendChild(first); //队首添加第五张照片
     this.picBox.insertBefore(last, this.picBox.firstElementChild);
-    //队末添加第一张图片 至此，图片队伍顺序变成 5,1,2,3,4,5,1
+    //队末添加第一张图片 
     this.picBox.style.width =
       this.sliderWidth * this.picBox.children.length + "px";
     this.picBox.style.left = -1 * this.sliderWidth + "px"; //可视区宽度=1个图片的宽
   }
+
   move(offset) {
     this.animate(offset);
     const num = this.indexBox.children[0].children.length; //小点点li的长度
@@ -74,16 +73,13 @@ class Slider {
     }
     this.indexBox.children[0].children[this.index - 1].className = "active";
   }
-  animate(offset) {//控制移动速度
-    //offset是位移
-    /* const time = 1000;
-    const rate = 100;
-    let speed = offset / (time / rate); */
-    let speed = offset / 10;
 
+  animate(offset) {//控制移动速度    offset是位移
+    let speed = offset / 10;
     let goal = parseFloat(this.picBox.style.left) - offset;
      //left带px单位，需转换
     this.animated = true;
+    
     let timer = setInterval(() => {
       if (
         this.picBox.style.left == goal ||
@@ -140,7 +136,7 @@ class Slider {
 
   play() {
     this.auto = setInterval(() => {
-      this.box.querySelector(".right-box").click();
+      this.box.querySelector(".right-box").click();//挺好用的方法=点击右键的效果
     }, 2000);
 
     this.box.addEventListener("mouseenter", () => {
