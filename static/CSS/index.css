@@ -70,12 +70,12 @@
 }
 .search-bar  .search-btn{
  width: 50px;
- height: 36px;
+ height: 28px;
  border:1px solid red;
  cursor: pointer;
  background-color: red; 
  text-align: center;
- line-height:36px ;
+ line-height:28px ;
 }
 .search-bar .iconfont-search{
   color: #ffffff;
